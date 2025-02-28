@@ -18,7 +18,16 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
+      "@/app/components/*": ["./app/components/*"],
+      "@/app/components/Partials/*": ["./app/components/Partials/*"],
+      "@/app/posts/*": ["./app/posts/*"],
+      "@/app/category/*": ["./app/category/*"],
+      "@/app/styles/*": ["./app/styles/*"],
+      "@/app/styles/font/*": ["./app/styles/font/*"],
+      "@/app/types/*": ["./app/types/*"],
+      "@/api-client/*": ["./api-client/*"],
       "@/*": ["./*"]
     }
   },

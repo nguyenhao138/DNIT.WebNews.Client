@@ -1,0 +1,72 @@
+.wp-block-button__link {
+  color: #fff;
+  background-color: #32373c;
+  border-radius: 9999px;
+  box-shadow: none;
+  text-decoration: none;
+  padding: calc(0.667em + 2px) calc(1.333em + 2px);
+  font-size: 1.125em;
+}
+
+.wp-block-file__button {
+  background: #32373c;
+  color: #fff;
+  text-decoration: none;
+}
+#backtotop {
+  position: fixed;
+  bottom: 15%;
+  left: 2%;
+  border-radius: 100%;
+  background-color: rgba(85, 85, 85, 0.5);
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  font-size: 24px;
+  color: #fff;
+  font-weight: bold;
+  line-height: 50px;
+  display: none;
+  cursor: pointer;
+}
+.site-title a,
+.site-title a:hover {
+  background: unset;
+  text-indent: inherit;
+  display: grid;
+  align-items: center;
+}
+
+.warp ul li a span {
+  letter-spacing: 0.5px;
+}
+
+.o-search-mobile {
+  top: 0px;
+  left: 0px;
+  display: none;
+}
+.tooltip {
+  position: absolute;
+  transform: translate3d(64px, 5px, 0px);
+  top: 0px;
+  left: 0px;
+  will-change: transform;
+}
+.arrow {
+  left: 0px;
+}
+#envidictionary {
+  display: none;
+}
+#envidictionaryOff .slick-slider .slick-list .slick-track .slick-slide {
+  width: 200px !important;
+}
+
+.nextjs-static-indicator-toast-wrapper {
+  display: none !important;
+}
+ol,
+ul {
+  padding: 0 !important;
+}
