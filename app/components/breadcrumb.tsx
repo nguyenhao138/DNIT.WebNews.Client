@@ -4,16 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { getBreadcrumb } from "@/api-client/post-api";
-import { BreadcrumbItem } from "@/app/types";
+import { BreadcrumbData, BreadcrumbItem } from "@/app/types";
 
 const fetchPostData = async (postId: string) => {
   try {
-    const data = await getBreadcrumb(postId as string);
+    const data: BreadcrumbData = await getBreadcrumb(postId as string);
     if (!data) throw new Error("No data returned from API");
-    return {
-      postName: data.Name,
-      categoryName: data.CategoryName, // Mảng category cha-con
-    };
+    return { name: data.name, categoryName: data.categoryName };
   } catch (error) {
     console.error("Error fetching post data:", error);
     return null;
@@ -31,17 +28,18 @@ const Breadcrumb = () => {
         setBreadcrumbItems([]);
         return;
       }
-      const postid = pathname.split("/").pop();
-      // hoặc {postid} = useParams
+
+      const postid = pathname.split("/").pop(); // hoặc {postid} = useParams
       const post = await fetchPostData(postid as string);
       if (!post) {
         setBreadcrumbItems([]);
         return;
       }
+      console.log(post);
       // Kiểm tra xem category cuối có trùng với post.name không
       // Use empty string as fallback if postName is undefined, empty array if categoryName is null
       const categories = post.categoryName ?? [];
-      const postName = post.postName ?? "";
+      const postName = post.name ?? "";
 
       const lastCategory = categories[categories.length - 1];
       const isLastCategorySameAsPostName =
@@ -65,9 +63,8 @@ const Breadcrumb = () => {
         { label: postName, href: pathname },
       ]);
     };
-
     generateBreadcrumb();
-  });
+  }, [pathname]);
   return (
     <div
       className="breadcrumb"
@@ -76,16 +73,17 @@ const Breadcrumb = () => {
     >
       <div className="wrap">
         {breadcrumbItems.map((item, index) => (
-          <span key={item.href}>
-            <span
-              className="breadcrumb-link-wrap"
-              itemProp="itemListElement"
-              itemScope
-              itemType="https://schema.org/ListItem"
-            >
+          <span
+            key={item.href || item.label}
+            className="breadcrumb-link-wrap"
+            itemProp="itemListElement"
+            itemScope
+            itemType="https://schema.org/ListItem"
+          >
+            {index < breadcrumbItems.length - 1 ? (
               <Link
                 className="breadcrumb-link"
-                href={item.href ?? ""}
+                href={item.href || "#"}
                 itemProp="item"
               >
                 <span className="breadcrumb-link-text-wrap" itemProp="name">
@@ -94,8 +92,12 @@ const Breadcrumb = () => {
                   </span>
                 </span>
               </Link>
-              <meta itemProp="position" content={String(index + 1)} />
-            </span>
+            ) : (
+              <span className="breadcrumb-link-text-wrap" itemProp="name">
+                {item.label}
+              </span>
+            )}
+            <meta itemProp="position" content={String(index + 1)} />
             {index < breadcrumbItems.length - 1 && (
               <span aria-label="breadcrumb separator" className="separator">
                 {" » "}

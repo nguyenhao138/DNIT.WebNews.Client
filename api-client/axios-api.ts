@@ -14,7 +14,6 @@ export const axiosFetchData = async <T>(
   endpoint: string,
   params?: object
 ): Promise<T | null> => {
-  console.log(endpoint);
   try {
     const response = await api.get<T>(endpoint, { params });
     return response.data ?? null;
